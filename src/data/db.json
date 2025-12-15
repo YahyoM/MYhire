@@ -1,0 +1,155 @@
+{
+  "jobs": [
+    {
+      "id": "job-1",
+      "title": "Senior Frontend Engineer",
+      "company": "Lumen Labs",
+      "location": "Remote - Europe",
+      "type": "Full-time",
+      "experience": "Senior",
+      "skills": [
+        "React",
+        "TypeScript",
+        "Next.js",
+        "TailwindCSS"
+      ],
+      "salary": "$110k - $140k",
+      "description": "Own the design system and ship delightful product experiences for a high-growth startup shipping weekly.",
+      "createdAt": "2025-01-05T10:00:00.000Z",
+      "mode": "Remote"
+    },
+    {
+      "id": "job-2",
+      "title": "Product Designer",
+      "company": "Northwind Studio",
+      "location": "Berlin, Germany",
+      "type": "Contract",
+      "experience": "Mid-level",
+      "skills": [
+        "Figma",
+        "UX Research",
+        "Prototyping",
+        "Design Systems"
+      ],
+      "salary": "€60 - €90/hr",
+      "description": "Partner with founders to explore and validate new product lines, ship high-polish visuals, and guide junior designers.",
+      "createdAt": "2025-01-08T09:30:00.000Z",
+      "mode": "Hybrid"
+    },
+    {
+      "id": "job-3",
+      "title": "Data Engineer",
+      "company": "Helio Analytics",
+      "location": "Austin, TX",
+      "type": "Full-time",
+      "experience": "Mid-level",
+      "skills": [
+        "Python",
+        "Airflow",
+        "SQL",
+        "AWS"
+      ],
+      "salary": "$130k - $150k",
+      "description": "Design modern data pipelines, champion observability, and support ML teams with real-time features.",
+      "createdAt": "2025-01-10T13:00:00.000Z",
+      "mode": "On-site"
+    },
+    {
+      "id": "job-4",
+      "title": "Mobile Engineer (React Native)",
+      "company": "Pulse Health",
+      "location": "Toronto, Canada",
+      "type": "Full-time",
+      "experience": "Junior",
+      "skills": [
+        "React Native",
+        "TypeScript",
+        "iOS",
+        "Android"
+      ],
+      "salary": "CA$90k - CA$110k",
+      "description": "Build wellness experiences with offline-first patterns, delightful motion, and robust analytics.",
+      "createdAt": "2025-01-11T16:45:00.000Z",
+      "mode": "Hybrid"
+    },
+    {
+      "id": "job-5",
+      "title": "DevOps Engineer",
+      "company": "CloudScale Technologies",
+      "location": "San Francisco, CA",
+      "type": "Full-time",
+      "experience": "Senior",
+      "skills": [
+        "Kubernetes",
+        "Docker",
+        "Terraform",
+        "CI/CD",
+        "AWS"
+      ],
+      "salary": "$140k - $180k",
+      "description": "Lead infrastructure automation, improve deployment pipelines, and mentor junior engineers in cloud-native architectures.",
+      "createdAt": "2025-01-12T08:00:00.000Z",
+      "mode": "Hybrid"
+    },
+    {
+      "id": "job-6",
+      "title": "Backend Developer (Node.js)",
+      "company": "StreamAPI Inc",
+      "location": "Remote - Global",
+      "type": "Full-time",
+      "experience": "Mid-level",
+      "skills": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "GraphQL",
+        "Redis"
+      ],
+      "salary": "$95k - $125k",
+      "description": "Build scalable APIs powering millions of requests daily. Work with event-driven architectures and real-time data processing.",
+      "createdAt": "2025-01-13T11:30:00.000Z",
+      "mode": "Remote"
+    },
+    {
+      "id": "job-7",
+      "title": "UX/UI Designer",
+      "company": "Creative Digital",
+      "location": "London, UK",
+      "type": "Contract",
+      "experience": "Junior",
+      "skills": [
+        "Sketch",
+        "Figma",
+        "User Research",
+        "Wireframing"
+      ],
+      "salary": "£45k - £60k",
+      "description": "Create intuitive user experiences for web and mobile applications. Collaborate with developers and product managers.",
+      "createdAt": "2025-01-14T14:15:00.000Z",
+      "mode": "On-site"
+    },
+    {
+      "id": "job-8",
+      "title": "Full Stack Developer",
+      "company": "TechVenture Studios",
+      "location": "New York, NY",
+      "type": "Full-time",
+      "experience": "Senior",
+      "skills": [
+        "React",
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Docker"
+      ],
+      "salary": "$120k - $160k",
+      "description": "Join a startup building the next generation of B2B SaaS products. Own features end-to-end from database to UI.",
+      "createdAt": "2025-01-15T09:00:00.000Z",
+      "mode": "Hybrid"
+    }
+  ],
+  "profiles": [],
+  "applications": [],
+  "messages": [],
+  "videoCalls": []
+}

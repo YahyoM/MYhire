@@ -41,7 +41,6 @@ export function ApplicationList() {
     <section
       id="applications"
       className="rounded-xl border border-blue-200/50 bg-white p-4 shadow-xl shadow-blue-500/10 backdrop-blur sm:rounded-2xl sm:p-6 md:p-8">
-    >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-purple-600">

@@ -79,7 +79,6 @@ export function CandidateList({ initialCandidates, initialSkills }: CandidateLis
     <section
       id="candidates"
       className="rounded-xl border border-blue-200/50 bg-white p-4 shadow-xl shadow-blue-500/10 backdrop-blur sm:rounded-2xl sm:p-6 md:p-8">
-    >
       <div className="mb-6">
         <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-600">
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

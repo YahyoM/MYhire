@@ -15,7 +15,6 @@ export function JobCard({ job, onApply }: JobCardProps) {
       transition={{ duration: 0.3 }}
       whileHover={{ y: -4 }}
       className="group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-blue-200/50 bg-white p-4 shadow-lg shadow-blue-500/10 backdrop-blur transition-all hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/20 sm:gap-4 sm:rounded-2xl sm:p-5 md:p-6">
-    >
       {/* Gradient overlay on hover */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="absolute right-0 top-0 h-32 w-32 bg-gradient-to-bl from-blue-500/10 to-transparent" />

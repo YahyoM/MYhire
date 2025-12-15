@@ -118,7 +118,6 @@ export function ApplicationModal({ job, onClose }: ApplicationModalProps) {
           exit={{ scale: 0.95, opacity: 0, y: 10 }}
           onClick={(e) => e.stopPropagation()}
           className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-blue-200/50 bg-white p-4 text-slate-800 shadow-2xl sm:rounded-3xl sm:p-6 md:p-8">
-        >
           {/* Decorative gradient */}
           <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 bg-gradient-to-bl from-blue-500/10 to-transparent" />
           

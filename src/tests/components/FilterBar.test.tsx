@@ -73,7 +73,7 @@ describe("FilterBar", () => {
 
     const skillInput = screen.getByPlaceholderText(/add more/i);
     await userEvent.type(skillInput, "GraphQL");
-    fireEvent.keyDown(skillInput, { key: "Enter" });
+    await userEvent.type(skillInput, "{Enter}");
 
     expect(handleChange).toHaveBeenLastCalledWith({
       skills: expect.arrayContaining(["React", "GraphQL"]),

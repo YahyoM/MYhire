@@ -1,0 +1,31 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.35" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" rx="32" fill="#0b1021" />
+  <g stroke="url(#grad)" stroke-width="1">
+    <path d="M40 60H760" />
+    <path d="M40 120H760" />
+    <path d="M40 180H760" />
+    <path d="M40 240H760" />
+    <path d="M40 300H760" />
+    <path d="M40 360H760" />
+    <path d="M40 420H760" />
+    <path d="M120 40V460" />
+    <path d="M200 40V460" />
+    <path d="M280 40V460" />
+    <path d="M360 40V460" />
+    <path d="M440 40V460" />
+    <path d="M520 40V460" />
+    <path d="M600 40V460" />
+    <path d="M680 40V460" />
+  </g>
+  <circle cx="180" cy="180" r="60" fill="url(#grad)" opacity="0.3" />
+  <circle cx="540" cy="320" r="80" fill="url(#grad)" opacity="0.35" />
+  <circle cx="650" cy="160" r="36" fill="#22d3ee" opacity="0.5" />
+  <circle cx="280" cy="340" r="32" fill="#34d399" opacity="0.45" />
+</svg>

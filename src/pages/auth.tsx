@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { motion } from "framer-motion";
 import { Space_Grotesk, Manrope } from "next/font/google";
+import Cookies from "js-cookie";
 import { getStorage } from "@/lib/demoStorage";
 
 const display = Space_Grotesk({
@@ -33,6 +34,16 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const storage = getStorage();
+    const role = storage.getItem("userRole");
+    
+    if (role) {
+      router.push("/");
+    }
+  }, [router]);
 
   // Load existing accounts from localStorage
   const getAccounts = (): UserAccount[] => {
@@ -94,7 +105,11 @@ export default function AuthPage() {
       
       saveAccount(newAccount);
       
-      // Set current session
+      // Set current session in cookies and localStorage
+      Cookies.set("userRole", selectedRole, { expires: 7 });
+      Cookies.set("userName", name, { expires: 7 });
+      Cookies.set("userEmail", email, { expires: 7 });
+      
       const storage = getStorage();
       storage.setItem("userRole", selectedRole);
       storage.setItem("userName", name);
@@ -111,7 +126,11 @@ export default function AuthPage() {
         return;
       }
 
-      // Set current session
+      // Set current session in cookies and localStorage
+      Cookies.set("userRole", account.role, { expires: 7 });
+      Cookies.set("userName", account.name, { expires: 7 });
+      Cookies.set("userEmail", account.email, { expires: 7 });
+      
       const storage = getStorage();
       storage.setItem("userRole", account.role);
       storage.setItem("userName", account.name);

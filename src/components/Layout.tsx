@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "react";
+import Cookies from "js-cookie";
 import { getStorage } from "@/lib/demoStorage";
 
 const display = Space_Grotesk({
@@ -92,6 +93,12 @@ export function Layout({
     storage.removeItem("userRole");
     storage.removeItem("userEmail");
     storage.removeItem("userName");
+    
+    // Remove cookies
+    Cookies.remove("userRole");
+    Cookies.remove("userEmail");
+    Cookies.remove("userName");
+    
     router.push("/auth");
   };
 

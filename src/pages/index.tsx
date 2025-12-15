@@ -262,7 +262,23 @@ export default function Home({
   );
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
+  const { req, query } = context;
+  const cookies = req.headers.cookie || "";
+  const userRole = cookies.split('; ').find(row => row.startsWith('userRole='))?.split('=')[1];
+  
+  // Check if user is authenticated (unless in demo mode)
+  const isDemoView = query.view === 'jobseeker' || query.view === 'employer';
+  
+  if (!userRole && !isDemoView) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
+  }
+
   const [initialJobs, rawProfiles, marketInsightsResult] = await Promise.all([
     listJobs(),
     listProfiles(),

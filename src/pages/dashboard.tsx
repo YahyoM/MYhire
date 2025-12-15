@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import type { GetServerSideProps } from "next";
 import { Layout } from "@/components/Layout";
 import { listApplications, listJobs } from "@/lib/dataStore";
+import { getStorage } from "@/lib/demoStorage";
 import type { Application, Job } from "@/types";
 
 interface DashboardProps {
@@ -32,7 +35,43 @@ const statCards = (
 ];
 
 export default function Dashboard({ jobs, applications }: DashboardProps) {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const latestApplications = applications.slice(0, 5);
+
+  useEffect(() => {
+    const storage = getStorage();
+    const role = storage.getItem("userRole");
+    
+    if (!role) {
+      router.push("/auth");
+      return;
+    }
+    
+    if (role !== "employer") {
+      router.push("/");
+      return;
+    }
+    
+    setIsLoading(false);
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <Layout
+        title="Loading..."
+        description="Loading dashboard"
+      >
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="text-center">
+            <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+            <p className="text-slate-600">Loading...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout
       title="PulseHire | Employer dashboard"
@@ -126,7 +165,31 @@ export default function Dashboard({ jobs, applications }: DashboardProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<DashboardProps> = async () => {
+export const getServerSideProps: GetServerSideProps<DashboardProps> = async (context) => {
+  const { req } = context;
+  const cookies = req.headers.cookie || "";
+  const userRole = cookies.split('; ').find(row => row.startsWith('userRole='))?.split('=')[1];
+  
+  // Redirect if not authenticated
+  if (!userRole) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
+  }
+  
+  // Redirect if not employer
+  if (userRole !== 'employer') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  
   const [jobs, applications] = await Promise.all([listJobs(), listApplications()]);
   return { props: { jobs, applications } };
 };

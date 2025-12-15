@@ -49,8 +49,33 @@ All JSON payloads are stored in src/data/db.json. Uploaded resumes are written t
 
 ## Deployment Tips
 1. Run npm run lint, npx tsc --noEmit, and npm run build locally to confirm the bundle is production-ready.
-2. Deploy to Vercel (recommended) or another Node-capable host. Remember that file writes (uploads, JSON persistence) are ephemeral on serverless platforms—use an external database and object storage in production environments.
-3. After deployment, set environment-specific configuration such as asset domains or API credentials if you integrate external services.
+2. Deploy to Vercel (recommended) or another Node-capable host. The app includes automatic fallbacks:
+   - File-based storage (src/data/db.json) works locally
+   - Vercel KV for database in production (optional)
+   - Vercel Blob for resume uploads in production (optional)
+3. Environment variables for production (optional):
+   - KV_REST_API_URL and KV_REST_API_TOKEN for Vercel KV
+   - BLOB_READ_WRITE_TOKEN for Vercel Blob storage
+   - DAILY_API_KEY for video call functionality
+   - See .env.example for the full list
+4. The app works out-of-the-box without external services - all features fallback to local storage.
+
+## Production Deployment (Vercel)
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Or deploy to production
+vercel --prod
+```
+
+The included vercel.json configures the deployment. For persistent storage in production:
+1. Add Vercel KV database to your project
+2. Add Vercel Blob storage for file uploads
+3. Configure environment variables in Vercel dashboard
 
 ## Project Structure
 - src/components – UI building blocks (modals, forms, lists, layout)

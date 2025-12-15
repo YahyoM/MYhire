@@ -37,6 +37,20 @@ const FALLBACK_INSIGHTS: MarketInsight[] = [
     salaryRange: "$100k – $140k",
     tags: ["AWS", "Terraform", "Kubernetes"],
   },
+  {
+    title: "Mobile Developer",
+    company: "AppCraft",
+    location: "San Francisco, USA",
+    salaryRange: "$110k – $150k",
+    tags: ["React Native", "iOS", "Android"],
+  },
+  {
+    title: "Machine Learning Engineer",
+    company: "AI Solutions",
+    location: "London, UK",
+    salaryRange: "$95k – $130k",
+    tags: ["Python", "TensorFlow", "PyTorch"],
+  },
 ];
 
 const MARKET_API_ENDPOINT =

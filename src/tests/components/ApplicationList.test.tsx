@@ -7,6 +7,8 @@ jest.mock("@/components/ChatModal", () => ({
   ChatModal: () => <div data-testid="chat-modal" />,
 }));
 
+global.fetch = jest.fn();
+
 const storeState: any = {
   applications: [],
   fetchApplications: jest.fn(),
@@ -51,6 +53,24 @@ describe("ApplicationList", () => {
         status: "accepted",
       },
     ];
+    
+    // Mock fetch for /api/jobs
+    (global.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        jobs: [
+          {
+            id: "job-1",
+            employerEmail: "employer@example.com",
+            title: "Frontend",
+            company: "Acme",
+          },
+        ],
+      }),
+    });
+    
+    // Mock localStorage
+    Storage.prototype.getItem = jest.fn(() => "employer@example.com");
   });
 
   afterEach(() => {
@@ -75,7 +95,11 @@ describe("ApplicationList", () => {
   it("filters applications and updates status", async () => {
     render(<ApplicationList />);
 
-    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+    // Wait for async data to load
+    await waitFor(() => {
+      expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+    });
+    
     await userEvent.click(screen.getByRole("button", { name: /accepted/i }));
 
     expect(screen.queryByText("Jane Doe")).not.toBeInTheDocument();

@@ -2,15 +2,13 @@ import type { MarketInsight } from "@/lib/marketInsights";
 
 interface MarketInsightsProps {
   insights: MarketInsight[];
-  source: "live" | "fallback";
+  source?: "live" | "fallback";
 }
 
-export function MarketInsights({ insights, source }: MarketInsightsProps) {
+export function MarketInsights({ insights }: MarketInsightsProps) {
   if (!insights.length) {
     return null;
   }
-
-  const sourceLabel = source === "live" ? "Live labor data" : "Sample market data";
 
   return (
     <section className="rounded-2xl border border-blue-200/50 bg-white/80 p-4 shadow-lg shadow-blue-200/30 backdrop-blur sm:rounded-3xl sm:p-6 md:p-8">
@@ -22,12 +20,6 @@ export function MarketInsights({ insights, source }: MarketInsightsProps) {
             See what roles and skills are trending right now.
           </p>
         </div>
-        <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-medium text-blue-700">
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          {sourceLabel}
-        </span>
       </div>
       <div className="mt-4 grid gap-3 sm:mt-6 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {insights.map((insight, index) => (

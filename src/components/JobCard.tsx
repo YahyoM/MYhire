@@ -6,7 +6,7 @@ interface JobCardProps {
   onApply: (job: Job) => void;
 }
 
-export function JobCard({ job, onApply }: JobCardProps) {
+export function JobCard({ job, onApply }: Readonly<JobCardProps>) {
   return (
     <motion.article
       layout

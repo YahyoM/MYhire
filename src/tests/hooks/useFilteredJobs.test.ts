@@ -58,6 +58,7 @@ describe("useFilteredJobs", () => {
     mode: "any",
     type: "any",
     skills: [],
+    company: "any",
     ...overrides,
   });
 

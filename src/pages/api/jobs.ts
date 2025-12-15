@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createJob, listJobs, readDb, writeDb } from "@/lib/dataStore";
+import { createJob, listJobs, readDb, writeDb } from "@/lib/kvStore";
 import type { Job } from "@/types";
 
 export const config = {
@@ -32,6 +32,7 @@ export default async function handler(
         salary,
         description,
         mode,
+        employerEmail,
       } = req.body;
 
       if (!title || !company || !location || !type || !description) {
@@ -55,6 +56,7 @@ export default async function handler(
         salary,
         description,
         mode,
+        employerEmail,
       });
 
       res.status(201).json({ job });

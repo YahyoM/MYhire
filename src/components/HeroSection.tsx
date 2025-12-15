@@ -14,11 +14,11 @@ export function HeroSection({
   userRole,
 }: HeroSectionProps) {
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-blue-200/50 bg-gradient-to-br from-white via-blue-50/40 to-purple-50 p-4 shadow-xl shadow-blue-200/20 sm:rounded-3xl sm:p-6 md:p-8 lg:p-10">
+    <section className="relative overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl border border-blue-200/50 bg-gradient-to-br from-white via-blue-50/40 to-purple-50 p-4 sm:p-6 md:p-8 lg:p-10 shadow-xl shadow-blue-200/20">
       {/* Enhanced animated background blobs */}
-      <div className="absolute -left-20 -top-24 h-56 w-56 animate-pulse-glow rounded-full bg-blue-400/20 blur-3xl" />
-      <div className="absolute -right-10 -bottom-10 h-64 w-64 animate-pulse-glow rounded-full bg-purple-400/20 blur-3xl" style={{ animationDelay: '2s' }} />
-      <div className="absolute left-1/2 top-1/2 h-40 w-40 animate-pulse-glow rounded-full bg-indigo-400/15 blur-3xl" style={{ animationDelay: '3s' }} />
+      <div className="absolute -left-20 -top-24 h-40 w-40 sm:h-56 sm:w-56 animate-pulse-glow rounded-full bg-blue-400/20 blur-3xl" />
+      <div className="absolute -right-10 -bottom-10 h-48 w-48 sm:h-64 sm:w-64 animate-pulse-glow rounded-full bg-purple-400/20 blur-3xl" style={{ animationDelay: '2s' }} />
+      <div className="absolute left-1/2 top-1/2 h-32 w-32 sm:h-40 sm:w-40 animate-pulse-glow rounded-full bg-indigo-400/15 blur-3xl" style={{ animationDelay: '3s' }} />
       
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center sm:text-left">

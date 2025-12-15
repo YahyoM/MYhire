@@ -14,7 +14,8 @@ import { EmployerJobsList } from "@/components/EmployerJobsList";
 import { MarketInsights } from "@/components/MarketInsights";
 import { usePortalStore } from "@/store/usePortalStore";
 import { useFilteredJobs } from "@/hooks/useFilteredJobs";
-import { listJobs, listProfiles } from "@/lib/dataStore";
+import { listJobs } from "@/lib/kvStore";
+import { listProfiles } from "@/lib/dataStore";
 import {
   getMarketInsights,
   extractJobseekerProfiles,

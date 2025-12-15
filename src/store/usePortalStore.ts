@@ -13,6 +13,7 @@ export interface Filters {
   mode: string;
   type: string;
   skills: string[];
+  company: string;
 }
 
 export interface SubmitApplicationPayload {
@@ -80,6 +81,7 @@ export const usePortalStore = create<PortalState>((set) => ({
     mode: "any",
     type: "any",
     skills: [],
+    company: "any",
   },
   loading: false,
   error: undefined,

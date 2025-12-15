@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Application } from "@/types";
+import type { Application, Job } from "@/types";
 import { usePortalStore } from "@/store/usePortalStore";
 import { ChatModal } from "./ChatModal";
+import { getStorage } from "@/lib/demoStorage";
 
 const statusColors: Record<Application["status"], string> = {
   submitted: "bg-blue-500/10 text-blue-700 border-blue-400/40",
@@ -14,6 +15,7 @@ const statusColors: Record<Application["status"], string> = {
 export function ApplicationList() {
   const [filter, setFilter] = useState("all");
   const [selectedAppForChat, setSelectedAppForChat] = useState<Application | null>(null);
+  const [employerJobs, setEmployerJobs] = useState<Job[]>([]);
   const {
     applications,
     fetchApplications,
@@ -29,13 +31,34 @@ export function ApplicationList() {
   }));
 
   useEffect(() => {
-    void fetchApplications();
+    const fetchEmployerJobsAndApplications = async () => {
+      const userEmail = getStorage().getItem("userEmail");
+      if (!userEmail) return;
+
+      // Fetch jobs posted by this employer
+      const jobsRes = await fetch("/api/jobs");
+      const jobsData = await jobsRes.json();
+      const allJobs = jobsData.jobs || [];
+      const employerJobsList = allJobs.filter((job: Job) => 
+        job.employerEmail === userEmail
+      );
+      setEmployerJobs(employerJobsList);
+
+      // Fetch all applications
+      void fetchApplications();
+    };
+
+    fetchEmployerJobsAndApplications();
   }, [fetchApplications]);
+
+  // Filter applications to only show those for employer's jobs
+  const employerJobIds = new Set(employerJobs.map(job => job.id));
+  const employerApplications = applications.filter(app => employerJobIds.has(app.jobId));
 
   const visible =
     filter === "all"
-      ? applications
-      : applications.filter((application) => application.status === filter);
+      ? employerApplications
+      : employerApplications.filter((application) => application.status === filter);
 
   return (
     <section

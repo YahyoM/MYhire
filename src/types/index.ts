@@ -76,6 +76,7 @@ export interface VideoCall {
   status: "calling" | "active" | "ended";
   startedAt: string;
   endedAt?: string;
+  roomUrl?: string; // Daily.co room URL
 }
 
 export interface Database {

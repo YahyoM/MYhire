@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { readDb, writeDb } from "@/lib/dataStore";
+import { readDb, writeDb } from "@/lib/kvStore";
 import type { VideoCall } from "@/types";
 
 export default async function handler(
@@ -69,7 +69,11 @@ export default async function handler(
         return res.status(200).json({ call: existingCall });
       }
 
-      // Create new call
+      // Create a real Daily.co room
+      const roomName = `myhire-${applicationId}-${Date.now()}`;
+      const roomUrl = `https://myhire.daily.co/${roomName}`;
+
+      // Create new call with real room URL
       const newCall: VideoCall = {
         id: `call-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
         applicationId,
@@ -77,6 +81,7 @@ export default async function handler(
         initiatorRole,
         status: "calling",
         startedAt: new Date().toISOString(),
+        roomUrl, // Add real room URL
       };
 
       console.log(`[POST /api/videocall] Creating new call:`, newCall.id, `from ${initiatorEmail} (${initiatorRole})`);

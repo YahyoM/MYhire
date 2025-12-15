@@ -48,6 +48,9 @@ export function JobForm() {
         skills,
       });
       setStatus("Role posted! You can review applications below.");
+      
+      // Notify EmployerJobsList to refresh
+      window.dispatchEvent(new Event("jobCreated"));
     } catch (submitError) {
       const msg =
         submitError instanceof Error ? submitError.message : "Failed to post";

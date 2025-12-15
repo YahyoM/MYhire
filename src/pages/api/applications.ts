@@ -5,7 +5,7 @@ import {
   saveResumeFile,
   updateApplicationStatus,
   enableChatForApplication,
-} from "@/lib/dataStore";
+} from "@/lib/kvStore";
 import type { Application } from "@/types";
 
 export const config = {
@@ -88,10 +88,10 @@ export default async function handler(
 
       let updated: Application;
       
-      if (status !== undefined) {
-        updated = await updateApplicationStatus(id, status);
-      } else if (chatEnabled !== undefined) {
+      if (chatEnabled !== undefined) {
         updated = await enableChatForApplication(id, chatEnabled);
+      } else if (status !== undefined) {
+        updated = await updateApplicationStatus(id, status);
       } else {
         res.status(400).json({ message: "Either status or chatEnabled is required" });
         return;
@@ -103,7 +103,9 @@ export default async function handler(
 
     res.setHeader("Allow", ["GET", "POST", "PATCH"]);
     res.status(405).end("Method Not Allowed");
-  } catch (_error) {
-    res.status(500).json({ message: "Failed to process applications request" });
+  } catch (error) {
+    console.error("Applications API error:", error);
+    const message = error instanceof Error ? error.message : "Failed to process applications request";
+    res.status(500).json({ message });
   }
 }

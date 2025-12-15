@@ -8,46 +8,55 @@ export function EmployerJobsList() {
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const fetchEmployerJobs = async () => {
+    try {
+      setLoading(true);
+      const userEmail = getStorage().getItem("userEmail");
+      if (!userEmail) return;
+
+      // Fetch all jobs
+      const jobsRes = await fetch("/api/jobs");
+      const jobsData = await jobsRes.json();
+      
+      // Fetch all applications
+      const appsRes = await fetch("/api/applications");
+      const appsData = await appsRes.json();
+      
+      // Filter jobs posted by this employer (match by email)
+      const allJobs = jobsData.jobs || [];
+      const allApplications = appsData.applications || [];
+      
+      // Filter to only show this employer's jobs
+      const employerJobs = allJobs.filter((job: Job) => 
+        job.employerEmail === userEmail
+      );
+      
+      // Calculate applications count for each job
+      const jobsWithCounts = employerJobs.map((job: Job) => {
+        const applicationsCount = allApplications.filter(
+          (app: Application) => app.jobId === job.id
+        ).length;
+        return { ...job, applicationsCount };
+      });
+
+      setJobsWithStats(jobsWithCounts);
+    } catch (_error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchEmployerJobs = async () => {
-      try {
-        setLoading(true);
-        const userEmail = getStorage().getItem("userEmail");
-        if (!userEmail) return;
-
-        // Fetch all jobs
-        const jobsRes = await fetch("/api/jobs");
-        const jobsData = await jobsRes.json();
-        
-        // Fetch all applications
-        const appsRes = await fetch("/api/applications");
-        const appsData = await appsRes.json();
-        
-        // Filter jobs posted by this employer (match by email)
-        const allJobs = jobsData.jobs || [];
-        const allApplications = appsData.applications || [];
-        
-        // Filter to only show this employer's jobs
-        const employerJobs = allJobs.filter((job: Job) => 
-          job.employerEmail === userEmail
-        );
-        
-        // Calculate applications count for each job
-        const jobsWithCounts = employerJobs.map((job: Job) => {
-          const applicationsCount = allApplications.filter(
-            (app: Application) => app.jobId === job.id
-          ).length;
-          return { ...job, applicationsCount };
-        });
-
-        setJobsWithStats(jobsWithCounts);
-      } catch (_error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchEmployerJobs();
+  }, []);
+
+  // Listen for custom event when a new job is created
+  useEffect(() => {
+    const handleJobCreated = () => {
+      fetchEmployerJobs();
+    };
+    window.addEventListener("jobCreated", handleJobCreated);
+    return () => window.removeEventListener("jobCreated", handleJobCreated);
   }, []);
 
   if (loading) {
@@ -67,18 +76,38 @@ export function EmployerJobsList() {
   return (
     <section className="rounded-2xl border border-blue-200/50 bg-white p-6 shadow-xl shadow-blue-500/10 backdrop-blur sm:p-8">
       <div className="mb-6">
-        <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-600">
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          Your Posted Jobs
-        </p>
-        <h2 className="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
-          Manage Your Openings
-        </h2>
-        <p className="text-sm text-slate-700">
-          Track views, applications, and manage your job postings
-        </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-600">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Your Posted Jobs
+            </p>
+            <h2 className="mb-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+              Manage Your Openings
+            </h2>
+            <p className="text-sm text-slate-700">
+              Track views, applications, and manage your job postings
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={fetchEmployerJobs}
+            disabled={loading}
+            className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-xs font-medium text-blue-700 transition-all hover:border-blue-300 hover:bg-blue-50 disabled:opacity-50"
+          >
+            <svg
+              className={`h-4 w-4 ${loading ? "animate-spin" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v6h6M20 20v-6h-6M5 19a9 9 0 0014-7V9" />
+            </svg>
+            {loading ? "Refreshing" : "Refresh"}
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-4">

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { listProfiles, saveResumeFile, upsertProfile } from "@/lib/dataStore";
+import { listProfiles, saveResumeFile, saveProfile as upsertProfile } from "@/lib/kvStore";
 
 export const config = {
   api: {

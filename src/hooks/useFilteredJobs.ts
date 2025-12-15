@@ -35,12 +35,17 @@ export function useFilteredJobs(jobs: Job[], filters: Filters): Job[] {
         filters.type === "any" ||
         job.type.toLowerCase() === filters.type.toLowerCase();
 
+      const matchesCompany =
+        filters.company === "any" ||
+        job.company === filters.company;
+
       return (
         matchesQuery &&
         matchesSkills &&
         matchesExperience &&
         matchesMode &&
-        matchesType
+        matchesType &&
+        matchesCompany
       );
     });
   }, [jobs, filters]);

@@ -27,14 +27,14 @@ export function Layout({
   children,
   title = "MYhire | Job Portal",
   description = "A modern job portal for candidates and hiring teams with skill-based search, applications, and profiles.",
-}: LayoutProps) {
+}: Readonly<LayoutProps>) {
   const router = useRouter();
   const [userRole, setUserRole] = useState<string | null>(null);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const siteUrl = "https://myhire.dev";
 
   const canonicalUrl = useMemo(() => {
-    const path = typeof window === "undefined" ? router.asPath : globalThis.location.pathname;
+    const path = typeof globalThis.window === "undefined" ? router.asPath : globalThis.location.pathname;
     const cleanPath = (path ?? "/").split("?")[0];
     return cleanPath === "/" ? siteUrl : `${siteUrl}${cleanPath}`;
   }, [router.asPath, siteUrl]);
@@ -200,46 +200,51 @@ export function Layout({
         
         {/* Enhanced header with glassmorphism */}
         <header className="sticky top-0 z-30 border-b border-blue-200/50 bg-white/80 backdrop-blur-2xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:gap-4 sm:px-4 sm:py-4 md:px-6 lg:px-8">
-            <Link href="/" className="group flex items-center gap-3 transition-all hover:scale-105">
-              <div className="relative h-10 w-10 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-500 p-0.5 shadow-lg shadow-blue-500/30 transition-all group-hover:shadow-xl group-hover:shadow-blue-500/40">
-                <div className="h-full w-full rounded-[14px] bg-white flex items-center justify-center">
-                  <span className="text-xs font-bold gradient-text">MY</span>
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8">
+            <Link href="/" className="group flex items-center gap-2 sm:gap-3 transition-all hover:scale-105">
+              <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-500 p-0.5 shadow-lg shadow-blue-500/30 transition-all group-hover:shadow-xl group-hover:shadow-blue-500/40">
+                <div className="h-full w-full rounded-[10px] sm:rounded-[14px] bg-white flex items-center justify-center">
+                  <span className="text-xs sm:text-sm font-bold gradient-text">MY</span>
                 </div>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-blue-600/70 transition-colors group-hover:text-blue-700">
+              <div className="hidden xs:block">
+                <p className="text-[10px] sm:text-xs uppercase tracking-[0.24em] sm:tracking-[0.28em] text-blue-600/70 transition-colors group-hover:text-blue-700">
                   MYhire
                 </p>
-                <p className="text-sm font-semibold text-slate-800 sm:text-base">Job Portal</p>
+                <p className="text-sm sm:text-base font-semibold text-slate-800">Job Portal</p>
               </div>
             </Link>
             
             {/* Mobile menu button */}
             <button
               type="button"
-              className="md:hidden rounded-lg border border-blue-200 p-2 text-slate-800 hover:bg-blue-50"
+              className="md:hidden rounded-lg border border-blue-200 bg-white p-2 text-slate-800 hover:bg-blue-50 transition-colors"
               aria-expanded={isMobileNavOpen}
               aria-controls="mobile-nav-panel"
+              aria-label="Toggle menu"
               onClick={() => setIsMobileNavOpen((prev) => !prev)}
             >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMobileNavOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
             
-            <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
+            <nav className="hidden items-center gap-4 lg:gap-6 text-sm font-medium text-slate-700 md:flex">
               {sharedNav}
             </nav>
           </div>
           {isMobileNavOpen && (
             <div className="md:hidden">
-              <div className="fixed inset-0 z-20 bg-slate-900/50" onClick={() => setIsMobileNavOpen(false)} aria-hidden="true" />
+              <div className="fixed inset-0 z-20 bg-slate-900/50 backdrop-blur-sm" onClick={() => setIsMobileNavOpen(false)} aria-hidden="true" />
               <div
                 id="mobile-nav-panel"
-                className="absolute inset-x-0 top-full z-30 origin-top rounded-b-3xl border-b border-blue-200/50 bg-white/95 px-4 pb-6 pt-4 shadow-xl backdrop-blur-xl sm:px-6"
+                className="absolute inset-x-0 top-full z-30 origin-top rounded-b-2xl border-b border-blue-200/50 bg-white/98 px-4 pb-6 pt-4 shadow-2xl backdrop-blur-xl animate-slide-down"
               >
-                <div className="flex flex-col gap-3 text-sm font-medium text-slate-700">
+                <div className="flex flex-col gap-2 text-sm font-medium text-slate-700">
                   {sharedNav}
                 </div>
               </div>
@@ -247,51 +252,55 @@ export function Layout({
           )}
         </header>
         
-        <main className="mx-auto flex max-w-7xl flex-col gap-14 px-4 py-12 sm:px-6 lg:px-8">
+        <main className="mx-auto flex max-w-7xl flex-col gap-8 sm:gap-12 lg:gap-14 px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
           {children}
         </main>
         
         {/* Enhanced footer */}
-        <footer className="relative border-t border-blue-200/50 bg-slate-50/80 backdrop-blur-xl">
+        <footer className="relative border-t border-blue-200/50 bg-slate-50/80 backdrop-blur-xl mt-12 sm:mt-16">
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-100/30 to-transparent" />
-          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <div className="grid gap-8 md:grid-cols-3">
-              <div>
+          <div className="mx-auto max-w-7xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="sm:col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 shadow-lg shadow-blue-500/30" />
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 shadow-lg shadow-blue-500/30 flex items-center justify-center">
+                    <span className="text-sm sm:text-base font-bold text-white">MY</span>
+                  </div>
                   <div>
-                    <p className="text-xs uppercase tracking-[0.28em] text-blue-600/70">MYhire</p>
-                    <p className="font-semibold text-slate-800">Job Portal</p>
+                    <p className="text-xs sm:text-sm uppercase tracking-[0.24em] sm:tracking-[0.28em] text-blue-600/70">MYhire</p>
+                    <p className="text-base sm:text-lg font-semibold text-slate-800">Job Portal</p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-600">
-                  Modern job marketplace connecting talent with opportunity
+                <p className="text-sm text-slate-600 max-w-sm">
+                  Modern job marketplace connecting talent with opportunity. Built with Next.js.
                 </p>
               </div>
               <div>
-                <h3 className="mb-4 font-semibold text-slate-800">Quick Links</h3>
+                <h3 className="mb-3 sm:mb-4 font-semibold text-slate-800">Quick Links</h3>
                 <ul className="space-y-2 text-sm text-slate-600">
-                  <li><Link href="#jobs" className="hover:text-blue-600 transition">Browse Jobs</Link></li>
-                  <li><Link href="#profile" className="hover:text-blue-600 transition">Create Profile</Link></li>
-                  <li><Link href="#employer" className="hover:text-blue-600 transition">Post a Job</Link></li>
-                  <li><Link href="/dashboard" className="hover:text-blue-600 transition">Dashboard</Link></li>
+                  <li><Link href="/" className="hover:text-blue-600 transition inline-flex items-center gap-1">Browse Jobs</Link></li>
+                  <li><button onClick={handleOpenProfile} className="hover:text-blue-600 transition inline-flex items-center gap-1">Create Profile</button></li>
+                  <li><Link href="/dashboard" className="hover:text-blue-600 transition inline-flex items-center gap-1">Dashboard</Link></li>
                 </ul>
               </div>
               <div>
-                <h3 className="mb-4 font-semibold text-slate-800">Contact</h3>
-                <p className="text-sm text-slate-600 mb-2">
+                <h3 className="mb-3 sm:mb-4 font-semibold text-slate-800">Contact</h3>
+                <p className="text-sm text-slate-600">
                   Need help?{" "}
-                  <a className="text-blue-600 hover:text-blue-700 transition" href="mailto:hello@myhire.dev">
+                  <a className="text-blue-600 hover:text-blue-700 transition underline underline-offset-2" href="mailto:hello@myhire.dev">
                     hello@myhire.dev
                   </a>
                 </p>
-                <p className="text-sm text-slate-600">
-                  Built with Next.js, Tailwind and Framer Motion
-                </p>
+                <div className="mt-4 flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                    Online
+                  </span>
+                </div>
               </div>
             </div>
-            <div className="mt-8 border-t border-blue-200/50 pt-8 text-center text-sm text-slate-500">
-              <p>© {new Date().getFullYear()} MYhire. All rights reserved.</p>
+            <div className="mt-8 border-t border-blue-200/50 pt-6 sm:pt-8 text-center text-xs sm:text-sm text-slate-500">
+              <p>© {new Date().getFullYear()} MYhire. All rights reserved. Built with ❤️ and Next.js</p>
             </div>
           </div>
         </footer>

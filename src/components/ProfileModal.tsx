@@ -27,6 +27,7 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   const [links, setLinks] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
 
   const {
     skills,
@@ -51,6 +52,9 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   useEffect(() => {
     // Reload data when modal opens or profile changes
     if (isOpen) {
+      const role = getStorage().getItem("userRole");
+      setUserRole(role);
+      
       if (profile) {
         setName(profile.name);
         setEmail(profile.email);
@@ -182,12 +186,14 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             />
           </label>
           <label className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-slate-700">Job Title <span className="text-red-600">*</span></span>
+            <span className="text-sm font-medium text-slate-700">
+              {userRole === 'employer' ? 'Company Name' : 'Job Title'} <span className="text-red-600">*</span>
+            </span>
             <input
               className="rounded-xl border border-blue-200/50 bg-slate-50 px-4 py-3 text-slate-800 placeholder:text-slate-500 transition-all focus:border-blue-400/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               value={headline}
               onChange={(event) => setHeadline(event.target.value)}
-              placeholder="e.g. Full-stack Developer"
+              placeholder={userRole === 'employer' ? 'e.g. TechVenture Studios' : 'e.g. Full-stack Developer'}
               required
             />
           </label>
@@ -201,14 +207,17 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             />
           </label>
           <label className="col-span-2 flex flex-col gap-2">
-            <span className="text-sm font-medium text-slate-700">About</span>
+            <span className="text-sm font-medium text-slate-700">
+              {userRole === 'employer' ? 'About Your Company' : 'About'}
+            </span>
             <textarea
               className="h-32 resize-none rounded-xl border border-blue-200/50 bg-slate-50 px-4 py-3 text-slate-800 placeholder:text-slate-500 transition-all focus:border-blue-400/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               value={bio}
               onChange={(event) => setBio(event.target.value)}
-              placeholder="Tell employers about yourself..."
+              placeholder={userRole === 'employer' ? 'Tell candidates about your company and what makes it a great place to work...' : 'Tell employers about yourself...'}
             />
           </label>
+          {userRole !== 'employer' && (
           <div className="col-span-2">
             <p className="mb-2 text-sm font-medium text-slate-700">Your Skills</p>
             <div className="flex min-h-[3.5rem] flex-wrap items-center gap-2 rounded-xl border-2 border-dashed border-blue-400/40 bg-slate-50 p-3 transition-all focus-within:border-blue-400/70 focus-within:bg-white">
@@ -246,6 +255,8 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               </p>
             )}
           </div>
+          )}
+          {userRole !== 'employer' && (
           <div className="col-span-2 flex flex-col gap-2">
             <p className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-700">
               <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,12 +306,13 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               )}
             </div>
           </div>
+          )}
           <div className="col-span-2 flex flex-col gap-3 border-t border-blue-200/50 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-center gap-2 text-xs text-slate-600">
               <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Keep your profile updated for better visibility.
+              {userRole === 'employer' ? 'Build your company profile to attract top talent.' : 'Keep your profile updated for better visibility.'}
             </p>
             <button
               type="submit"

@@ -1,6 +1,42 @@
 {
   "jobs": [
     {
+      "id": "job-88df8d41-6d0c-4c1d-8f06-7c2e9c63e7c2",
+      "createdAt": "2025-12-15T13:48:58.339Z",
+      "title": "Product Designer",
+      "company": "Northwind Studio",
+      "location": "Remote / Berlin",
+      "type": "Full-time",
+      "experience": "Mid-level",
+      "skills": [
+        "Figma",
+        "Prototyping",
+        "Design Systems"
+      ],
+      "salary": "€70k - €95k",
+      "description": "Ship modern, joyful product experiences alongside a small team.",
+      "mode": "Hybrid",
+      "employerEmail": "yahyomannonov@gmail.com"
+    },
+    {
+      "id": "job-75c4f513-8cdb-4b75-9429-efb61df2288b",
+      "createdAt": "2025-12-15T13:45:37.220Z",
+      "title": "Product Designer",
+      "company": "Northwind Studio",
+      "location": "Remote / Berlin",
+      "type": "Contract",
+      "experience": "Junior",
+      "skills": [
+        "Figma",
+        "Prototyping",
+        "Design Systems"
+      ],
+      "salary": "€70k - €95k",
+      "description": "Ship modern, joyful product experiences alongside a small team.",
+      "mode": "Hybrid",
+      "employerEmail": "sevinchf@gmail.com"
+    },
+    {
       "id": "job-1",
       "title": "Senior Frontend Engineer",
       "company": "Lumen Labs",
@@ -16,7 +52,8 @@
       "salary": "$110k - $140k",
       "description": "Own the design system and ship delightful product experiences for a high-growth startup shipping weekly.",
       "createdAt": "2025-01-05T10:00:00.000Z",
-      "mode": "Remote"
+      "mode": "Remote",
+      "employerEmail": "jobs@lumenlabs.com"
     },
     {
       "id": "job-2",
@@ -145,11 +182,130 @@
       "salary": "$120k - $160k",
       "description": "Join a startup building the next generation of B2B SaaS products. Own features end-to-end from database to UI.",
       "createdAt": "2025-01-15T09:00:00.000Z",
-      "mode": "Hybrid"
+      "mode": "Hybrid",
+      "employerEmail": "hr@techventure.com"
     }
   ],
-  "profiles": [],
-  "applications": [],
-  "messages": [],
-  "videoCalls": []
+  "profiles": [
+    {
+      "id": "profile-emp-1",
+      "name": "Tech Venture HR",
+      "email": "hr@techventure.com",
+      "headline": "TechVenture Studios",
+      "role": "employer",
+      "companyName": "TechVenture Studios",
+      "companyWebsite": "https://techventure.com",
+      "companySize": "50-200",
+      "industry": "Technology",
+      "companyDescription": "Building next-gen B2B SaaS products"
+    },
+    {
+      "id": "profile-emp-2",
+      "name": "Lumen Labs Recruiter",
+      "email": "jobs@lumenlabs.com",
+      "headline": "Lumen Labs",
+      "role": "employer",
+      "companyName": "Lumen Labs",
+      "companyWebsite": "https://lumenlabs.com",
+      "companySize": "10-50",
+      "industry": "Technology",
+      "companyDescription": "High-growth startup shipping weekly"
+    },
+    {
+      "id": "profile-seeker-1",
+      "name": "yahyo mannonov",
+      "email": "yahyomannonov@gmail.com",
+      "headline": "Full Stack Developer",
+      "role": "jobseeker",
+      "skills": [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Next.js"
+      ],
+      "bio": "Passionate developer with 3 years of experience",
+      "resumeUrl": "/uploads/1765805826479-W2_Yahyo_Mannonov_T2-(1).pdf"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app-492d04c4-dbf5-4106-837a-ea57394f573a",
+      "createdAt": "2025-12-15T13:50:04.156Z",
+      "status": "accepted",
+      "jobTitle": "Product Designer",
+      "company": "Northwind Studio",
+      "chatEnabled": true,
+      "jobId": "job-75c4f513-8cdb-4b75-9429-efb61df2288b",
+      "fullName": "sevinchf",
+      "email": "sevinchf@gmail.com",
+      "message": "Excited to join your team!",
+      "resumeUrl": "/uploads/1765806604115-sales-report-UZB-2025-10-2025.pdf",
+      "skills": []
+    },
+    {
+      "id": "app-efa801d9-33cb-46cd-b00a-85af1c44507b",
+      "createdAt": "2025-12-15T13:49:17.580Z",
+      "status": "submitted",
+      "jobTitle": "Product Designer",
+      "company": "Northwind Studio",
+      "chatEnabled": false,
+      "jobId": "job-88df8d41-6d0c-4c1d-8f06-7c2e9c63e7c2",
+      "fullName": "yahyo mannonov",
+      "email": "yahyomannonov@gmail.com",
+      "message": "Excited to join your team!",
+      "resumeUrl": "/uploads/1765806557571-W2_Yahyo_Mannonov_T2.docx",
+      "skills": []
+    },
+    {
+      "id": "app-61188927-7217-493e-8920-ea7902db8399",
+      "createdAt": "2025-12-15T13:37:06.485Z",
+      "status": "submitted",
+      "jobTitle": "Full Stack Developer",
+      "company": "TechVenture Studios",
+      "chatEnabled": false,
+      "jobId": "job-8",
+      "fullName": "yahyo mannonov",
+      "email": "yahyomannonov@gmail.com",
+      "message": "Excited to join your team!",
+      "resumeUrl": "/uploads/1765805826479-W2_Yahyo_Mannonov_T2-(1).pdf",
+      "skills": []
+    },
+    {
+      "id": "app-8308f9d8-ee5a-4c05-99f5-43113c98c756",
+      "createdAt": "2025-12-15T12:10:29.748Z",
+      "status": "submitted",
+      "jobTitle": "Full Stack Developer",
+      "company": "TechVenture Studios",
+      "chatEnabled": false,
+      "jobId": "job-8",
+      "fullName": "yahyo mannonov",
+      "email": "yahyomannonov@gmail.com",
+      "message": "Excited to join your team!asdfg",
+      "resumeUrl": "/uploads/1765800629741-W2_Yahyo_Mannonov_T2.docx",
+      "skills": []
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-1765806638370-xhy6heroi",
+      "applicationId": "app-492d04c4-dbf5-4106-837a-ea57394f573a",
+      "sender": "employer",
+      "senderEmail": "sevinchf@gmail.com",
+      "text": "руддщ",
+      "timestamp": "2025-12-15T13:50:38.370Z",
+      "read": false
+    }
+  ],
+  "videoCalls": [
+    {
+      "id": "call-1765806642424-jl52zrxb0",
+      "applicationId": "app-492d04c4-dbf5-4106-837a-ea57394f573a",
+      "initiatorEmail": "sevinchf@gmail.com",
+      "initiatorRole": "employer",
+      "status": "ended",
+      "startedAt": "2025-12-15T13:50:42.424Z",
+      "roomUrl": "https://myhire.daily.co/myhire-app-492d04c4-dbf5-4106-837a-ea57394f573a-1765806642424",
+      "endedAt": "2025-12-15T13:50:50.236Z"
+    }
+  ]
 }

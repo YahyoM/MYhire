@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { readDb, writeDb } from "@/lib/dataStore";
+import { readDb, writeDb } from "@/lib/kvStore";
 import type { Message } from "@/types";
 
 export default async function handler(

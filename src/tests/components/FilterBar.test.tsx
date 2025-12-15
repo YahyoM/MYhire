@@ -7,6 +7,7 @@ import type { Filters } from "@/store/usePortalStore";
 describe("FilterBar", () => {
   const baseFilters: Filters = {
     query: "",
+    company: "",
     experience: "any",
     mode: "any",
     type: "any",

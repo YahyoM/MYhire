@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import type { GetServerSideProps } from "next";
 import { Layout } from "@/components/Layout";
-import { listApplications, listJobs } from "@/lib/dataStore";
+import { listApplications, listJobs } from "@/lib/kvStore";
 import { getStorage } from "@/lib/demoStorage";
 import type { Application, Job } from "@/types";
+import { usePortalStore } from "@/store/usePortalStore";
 
 interface DashboardProps {
   jobs: Job[];
@@ -37,7 +38,16 @@ const statCards = (
 export default function Dashboard({ jobs, applications }: DashboardProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const latestApplications = applications.slice(0, 5);
+  const { profile } = usePortalStore((state) => ({ profile: state.profile }));
+  
+  // Filter jobs and applications by employer's email
+  const userEmail = profile?.email || "";
+  const filteredJobs = userEmail ? jobs.filter(job => job.employerEmail === userEmail) : jobs;
+  const jobIds = new Set(filteredJobs.map(job => job.id));
+  const filteredApplications = applications.filter(app => jobIds.has(app.jobId));
+  
+  const latestApplications = filteredApplications.slice(0, 5);
+  const stats = statCards(filteredJobs, filteredApplications);
 
   useEffect(() => {
     const storage = getStorage();
@@ -86,7 +96,7 @@ export default function Dashboard({ jobs, applications }: DashboardProps) {
           Quick stats across all active roles and applicants.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {statCards(jobs, applications).map((card) => (
+          {stats.map((card) => (
             <div
               key={card.label}
               className="rounded-2xl border border-white/10 bg-white/5 p-4"

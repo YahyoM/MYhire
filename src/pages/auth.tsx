@@ -70,7 +70,7 @@ export default function AuthPage() {
     ) || null;
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     setError("");
     
     if (!selectedRole || !email || !password) {
@@ -115,6 +115,26 @@ export default function AuthPage() {
       storage.setItem("userName", name);
       storage.setItem("userEmail", email);
       
+      // Create profile automatically for employer
+      if (selectedRole === "employer") {
+        try {
+          await fetch("/api/profile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              email,
+              headline: name, // Use company name as headline
+              skills: [],
+              bio: "",
+              links: [],
+            }),
+          });
+        } catch (error) {
+          console.error("Failed to create employer profile:", error);
+        }
+      }
+      
       // Redirect
       router.push("/");
     } else {
@@ -157,28 +177,28 @@ export default function AuthPage() {
           <div className="absolute left-1/2 top-1/2 h-96 w-96 animate-pulse-glow rounded-full bg-teal-300/15 blur-[160px]" style={{ animationDelay: '4s' }} />
         </div>
 
-        <div className="relative flex min-h-screen items-center justify-center p-4">
+        <div className="relative flex min-h-screen items-center justify-center p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="w-full max-w-5xl"
           >
             {/* Logo and Welcome */}
-            <div className="mb-12 text-center">
+            <div className="mb-8 sm:mb-12 text-center">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl shadow-blue-500/30"
+                className="mb-4 sm:mb-6 inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl shadow-blue-500/30"
               >
-                <span className="text-3xl font-bold text-white">M</span>
+                <span className="text-2xl sm:text-3xl font-bold text-white">M</span>
               </motion.div>
               
               <motion.h1
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mb-4 text-5xl font-bold text-slate-800 sm:text-6xl"
+                className="mb-3 sm:mb-4 text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-800"
               >
                 {authMode === "signup" ? "Welcome to" : "Welcome back to"}{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">MYhire</span>
@@ -188,7 +208,7 @@ export default function AuthPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg text-slate-600"
+                className="text-base sm:text-lg text-slate-600"
               >
                 {authMode === "signup" ? "Create your account to get started" : "Sign in to your account"}
               </motion.p>
@@ -198,7 +218,7 @@ export default function AuthPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="mt-6 flex items-center justify-center gap-2"
+                className="mt-4 sm:mt-6 flex items-center justify-center gap-2"
               >
                 <span className="text-sm text-slate-600">
                   {authMode === "signup" ? "Already have an account?" : "Don’t have an account?"}
@@ -220,13 +240,13 @@ export default function AuthPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <h2 className="mb-6 text-center text-2xl font-semibold text-slate-700">
+              <h2 className="mb-4 sm:mb-6 text-center text-xl sm:text-2xl font-semibold text-slate-700">
                 {authMode === "signup" ? "Who are you?" : "Sign in as"}
               </h2>
               
-              <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+              <div className="grid gap-3 sm:gap-4 lg:gap-6 md:grid-cols-2">
                 {/* Job Seeker Card */}
                 <motion.button
                   whileHover={{ y: -8, scale: 1.02 }}
